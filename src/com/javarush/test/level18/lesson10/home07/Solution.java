@@ -24,8 +24,7 @@ public class Solution {
     public static void main(String[] args) throws IOException
     {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(bufferedReader.readLine()));
-        bufferedReader = new BufferedReader(inputStreamReader);
+        bufferedReader = new BufferedReader(new FileReader(bufferedReader.readLine()));
 
         String str;
         while ((str = bufferedReader.readLine()) != null){
@@ -34,6 +33,5 @@ public class Solution {
         }
 
         bufferedReader.close();
-        inputStreamReader.close();
     }
 }
