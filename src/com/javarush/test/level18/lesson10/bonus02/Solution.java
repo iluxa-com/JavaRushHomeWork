@@ -26,6 +26,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Solution
 {
@@ -35,7 +37,7 @@ public class Solution
         String fileName = bufferedReader.readLine();
         bufferedReader.close();
 
-        int nextId = getNextId(fileName);
+        Long nextId = getNextId(fileName);
         String productName = "";
         for (int i = 1; i < args.length-2; i++)
             productName = productName + args[i] + " ";
@@ -43,29 +45,31 @@ public class Solution
         String quantity = args[args.length-1];
 
 
-        String result = "\n" + format(Integer.toString(nextId), 8) + format(productName, 30) + format(price, 8) + format(quantity, 4);
+        String result = format(Long.toString(nextId), 8)
+                             + format(productName, 30)
+                             + format(price, 8)
+                             + format(quantity, 4);
 
-        try
-        {
-            Files.write(Paths.get(fileName), result.getBytes(), StandardOpenOption.APPEND);
-        }
-        catch (IOException e)
-        {
-            //exception handling left as an exercise for the reader
-        }
+        PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(fileName, true)));
+        printWriter.println(result);
+        printWriter.close();
     }
 
-    private static int getNextId(String fileName) throws IOException
+    private static Long getNextId(String fileName) throws IOException
     {
+        ArrayList<Long> allIds = new ArrayList<Long>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
-
-        String str;
-        String lastEntry = "";
-        while ((str = bufferedReader.readLine()) != null) lastEntry = str;
-
+        String line;
+        Long currentId;
+        while ((line=bufferedReader.readLine()) != null) {
+            line = line.substring(0, 8).replaceAll("\\s", "");
+            currentId = Long.parseLong(line);
+            allIds.add(currentId);
+        }
         bufferedReader.close();
-
-        return Integer.parseInt(lastEntry.substring(0, lastEntry.indexOf(" "))) + 1;
+        Long maxId = Collections.max(allIds);
+        Long MyId = maxId+1;
+        return MyId;
     }
 
     private static String format(String str, int length)
