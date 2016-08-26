@@ -33,7 +33,7 @@ public class Solution {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         String input;
 
-        while (!(input = bufferedReader.readLine()).equals("exit")){
+        while (!(input = bufferedReader.readLine()).equals("end")){
             set.add(input);
         }
 
@@ -47,10 +47,11 @@ public class Solution {
                 set)
         {
             FileInputStream fileInputStream = new FileInputStream(fileName);
-            byte[] bytes = new byte[fileInputStream.available()];
-            while (fileInputStream.available()>0){
-                fileInputStream.read(bytes);
-                fileOutputStream.write(bytes);
+            byte[] bytes = new byte[100];
+            while (fileInputStream.available() > 0)
+            {
+                int count = fileInputStream.read(bytes);
+                fileOutputStream.write(bytes,0,count);
             }
             fileInputStream.close();
         }
