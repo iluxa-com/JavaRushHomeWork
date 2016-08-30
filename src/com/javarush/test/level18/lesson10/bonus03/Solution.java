@@ -24,8 +24,24 @@ id productName price quantity
 19847983Куртка для сноубордистов, разм10173.991234
 */
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException
+    {
+        String filename;
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        filename = bufferedReader.readLine();
+        SaleEntrySet entrySet = new SaleEntrySet(filename);
+        bufferedReader.close();
+
+        if (args[0].equals("-u")) entrySet.update(new SaleEntry(Arrays.copyOfRange(args,1,args.length)));
+        if (args[0].equals("-d")) entrySet.remove(Integer.parseInt(args[1]));
+
+        entrySet.saveToFile(filename);
 
     }
 }
