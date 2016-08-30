@@ -5,17 +5,8 @@ import java.util.TreeSet;
 /**
  * Created by user on 28.08.16.
  */
-public class SaleEntry implements Comparable<SaleEntry>
+class SaleEntry implements Comparable<SaleEntry>
 {
-    @Override
-    public String toString()
-    {
-        return format(Long.toString(id), 8)
-                + format(productName, 30)
-                + format(Double.toString(price), 8)
-                + format(Integer.toString(quantity), 4);
-    }
-
     private long id;
     private String productName = "";
     private double price;
@@ -33,6 +24,14 @@ public class SaleEntry implements Comparable<SaleEntry>
         this.id = id;
     }
 
+    @Override
+    public String toString()
+    {
+        return format(Long.toString(id), 8)
+                + format(productName, 30)
+                + format(Double.toString(price), 8)
+                + format(Integer.toString(quantity), 4);
+    }
 
     @Override
     public boolean equals(Object o)
@@ -60,7 +59,7 @@ public class SaleEntry implements Comparable<SaleEntry>
         return 0;
     }
 
-    private static String format(String str, int length)
+    private String format(String str, int length)
     {
         if (str.length() > length) return str.substring(0,length);
         else return String.format("%-" + length + "s", str);

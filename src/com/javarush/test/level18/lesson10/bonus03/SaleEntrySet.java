@@ -10,16 +10,6 @@ public class SaleEntrySet
 {
     private TreeSet<SaleEntry> set;
 
-    public void update(SaleEntry saleEntry){
-            set.remove(saleEntry);
-            set.add(saleEntry);
-    }
-
-    public void remove(int id){
-        SaleEntry saleEntry = new SaleEntry(id);
-        if (set.contains(saleEntry)) set.remove(saleEntry);
-    }
-
     public  SaleEntrySet(String fileName) throws IOException
     {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
@@ -36,10 +26,20 @@ public class SaleEntrySet
 
             SaleEntry saleEntryObj = new SaleEntry(saleEntry);
 
-           set.add(saleEntryObj);
+            set.add(saleEntryObj);
 
         }
         bufferedReader.close();
+    }
+
+    public void update(SaleEntry saleEntry){
+            set.remove(saleEntry);
+            set.add(saleEntry);
+    }
+
+    public void remove(int id){
+        SaleEntry saleEntry = new SaleEntry(id);
+        if (set.contains(saleEntry)) set.remove(saleEntry);
     }
 
     public void saveToFile (String fileName) throws IOException
