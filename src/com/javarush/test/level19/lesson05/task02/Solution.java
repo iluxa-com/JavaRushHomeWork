@@ -25,7 +25,7 @@ public class Solution {
             for (String str:
                  strings)
             {
-                if (str.contains("word")) wordCount++;
+                if (str.toLowerCase().contains("world")) wordCount++;
             }
         }
 
