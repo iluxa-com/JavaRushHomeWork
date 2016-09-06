@@ -19,7 +19,7 @@ public class Solution {
 
         reader = new BufferedReader(new FileReader(fileName));
 
-        Pattern pattern = Pattern.compile("\\bworld\\b");
+        Pattern pattern = Pattern.compile("world");
         int count = 0;
 
         while (reader.ready())
@@ -34,4 +34,5 @@ public class Solution {
         System.out.println(count);
 
         reader.close();
-    }}
+    }
+}
