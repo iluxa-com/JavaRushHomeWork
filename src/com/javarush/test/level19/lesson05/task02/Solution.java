@@ -8,30 +8,30 @@ package com.javarush.test.level19.lesson05.task02;
 */
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Solution {
     public static void main(String[] args) throws IOException
     {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName = reader.readLine();
 
-        String fileName =bufferedReader.readLine();
+        reader = new BufferedReader(new FileReader(fileName));
 
-        bufferedReader = new BufferedReader(new FileReader(fileName));
+        Pattern pattern = Pattern.compile("\\bworld\\b");
+        int count = 0;
 
-        String line;
-        int wordCount = 0;
-        while ((line = bufferedReader.readLine()) != null){
-            String[] strings = line.split(" ");
-            for (String str:
-                 strings)
+        while (reader.ready())
+        {
+            Matcher matcher = pattern.matcher(reader.readLine());
+            while (matcher.find())
             {
-                if (str.toLowerCase().contains("world")) wordCount++;
+                count++;
             }
         }
 
-        bufferedReader.close();
+        System.out.println(count);
 
-        System.out.println(wordCount);
-
-    }
-}
+        reader.close();
+    }}
