@@ -4,6 +4,8 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /* Хуан Хуанович
@@ -33,6 +35,8 @@ public class Solution {
             PEOPLE.add(getPersonFromString(bufferedReader.readLine()));
         }
 
+        bufferedReader.close();
+
         for (Person person :
                 PEOPLE)
         {
@@ -46,14 +50,19 @@ public class Solution {
         String birthDayString = personStrings[personStrings.length-3] + "-" +
                                 personStrings[personStrings.length-2] + "-" +
                                 personStrings[personStrings.length-1];
-        String name = "";
 
-        for (int i = 0; i < personStrings.length - 3; i++)
+        Date birthDay = new GregorianCalendar(Integer.parseInt(personStrings[personStrings.length-1]),
+                                              Integer.parseInt(personStrings[personStrings.length-2])-1,
+                                              Integer.parseInt(personStrings[personStrings.length-3])).getTime();
+        String name = personStrings[0];
+
+        for (int i = 1; i < personStrings.length - 3; i++)
         {
             name = name + " " + personStrings[i];
         }
 
-        return new Person(name,(new SimpleDateFormat("dd-MM-yyyy")).parse(birthDayString));
+        //return new Person(name,(new SimpleDateFormat("dd-MM-yyyy")).parse(birthDayString));
+        return new Person(name,birthDay);
     }
 
 }
