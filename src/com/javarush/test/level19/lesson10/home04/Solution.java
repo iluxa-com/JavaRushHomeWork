@@ -27,25 +27,23 @@ public class Solution {
 
     public static void main(String[] args) throws IOException
     {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = bufferedReader.readLine();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String file1 = reader.readLine();
+        reader.close();
 
-        bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+        BufferedReader in = new BufferedReader(new FileReader(file1));
 
-        while (bufferedReader.ready()){
-            String line = bufferedReader.readLine();
-            int count = 0;
-            for (String word :
-                    words)
-            {
-                if (line.matches(".*\\b" + word + "\\b.*")) count++;
+        while(in.ready()){
+            String readedString = in.readLine();
+            String[] readedWords  = readedString.split(" ");
+            int matcher = 0;
+            for (int i = 0; i < readedWords.length; i++) {
+                if(words.contains(readedWords[i]))
+                    matcher++;
             }
-
-            if (count == 2) System.out.println(line);
-
+            if(matcher == 2)
+                System.out.println(readedString);
         }
-
-        bufferedReader.close();
-
+        in.close();
     }
 }
