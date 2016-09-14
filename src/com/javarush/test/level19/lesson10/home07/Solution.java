@@ -11,27 +11,41 @@ package com.javarush.test.level19.lesson10.home07;
 */
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Solution {
     public static void main(String[] args) throws IOException
     {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(args[0])));
-        FileWriter fileWriter = new FileWriter(args[1]);
+        String fileName1 = args[0];
+        String input;
+        ArrayList<String> fileList = new ArrayList<String>();
+        BufferedReader fileReader = new BufferedReader(new FileReader(fileName1));
+        while ((input = fileReader.readLine()) != null)
+            fileList.add(input);
+        fileReader.close();
 
-        while (bufferedReader.ready()){
-            String[] words = bufferedReader.readLine().split(" ");
-            for (int i = 0; i < words.length; i++)
+        ArrayList<String> resultWords = new ArrayList<String>();
+        for (String aFileList : fileList)
+        {
+            String[] stringArray = aFileList.split(" ");
+            for (String aStringArray : stringArray)
             {
-                if (words[i].length() > 6)
-                {
-                    fileWriter.write(words[i]);
-                    if ( words.length-1 != i) fileWriter.write(",");
-                }
+                if (aStringArray.length() > 6)
+                    resultWords.add(aStringArray);
             }
-            if ( bufferedReader.ready()) fileWriter.write(",");
         }
-        bufferedReader.close();
-        fileWriter.close();
 
+        String result = "";
+        for (int i = 0; i < resultWords.size(); i++) {
+            if (i == resultWords.size()-1)
+                result = result + resultWords.get(i);
+            else
+                result = result + resultWords.get(i) + ",";
+        }
+
+        String fileName2 = args[1];
+        PrintWriter printWriter = new PrintWriter(new FileWriter(fileName2));
+        printWriter.println(result);
+        printWriter.close();
     }
 }
