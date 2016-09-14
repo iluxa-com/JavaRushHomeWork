@@ -1,6 +1,7 @@
 package com.javarush.test.level19.lesson10.home06;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,34 +42,32 @@ public class Solution {
         map.put(12,"двенадцать");
     }
 
-    public static void main(String[] args) throws IOException
-    {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        String fileName = bufferedReader.readLine();
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String file1 = reader.readLine();
+        reader.close();
+        String input;
+        BufferedReader in = new BufferedReader(new FileReader(file1));
+        String bodyOfFile = "";
+        ArrayList<String> fileListStrings = new ArrayList<String>();
+        while ((input = in.readLine()) != null)
+            fileListStrings.add(input);
+        in.close();
+        for (String strinOfFile : fileListStrings) {
+            String[] arrWords = strinOfFile.split(" ");
+            for (int i = 0; i < arrWords.length; i++) {
 
-        bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
-
-        while (bufferedReader.ready()){
-            String line = bufferedReader.readLine();
-            String[] words = line.split(" ");
-            for (int i =0 ; i < words.length; i++)
-            {
-                Integer num = null;
-                try
-                {
-                    num = Integer.parseInt(words[i]);
+                for (Map.Entry<Integer, String> entry : map.entrySet()) {
+                    try {
+                        if (Integer.parseInt(arrWords[i]) == entry.getKey())
+                            arrWords[i] = entry.getValue();
+                    } catch (NumberFormatException ignored) {
+                    }
                 }
-                catch (Exception e){}
-                if ((num != null) && (map.containsKey(num))) System.out.print(map.get(num));
-                else System.out.print(words[i]);
-
-                if (i != words.length-1) System.out.print(" ");
             }
-
+            for (String currentString : arrWords)
+                System.out.print(currentString + " ");
             System.out.println();
         }
-
-        bufferedReader.close();
-
     }
 }
