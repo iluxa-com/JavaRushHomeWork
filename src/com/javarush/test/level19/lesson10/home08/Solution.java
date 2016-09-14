@@ -25,10 +25,11 @@ public class Solution {
     public static void main(String[] args) throws IOException
     {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(bufferedReader.readLine())));
+        String fileName = bufferedReader.readLine();
+        BufferedReader bufferedReader1 = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
 
-        while (bufferedReader.ready()){
-            String line = bufferedReader.readLine();
+        while (bufferedReader1.ready()){
+            String line = bufferedReader1.readLine();
             char[] array = line.toCharArray();
 
             for (int i = array.length-1; i >= 0; i--){
@@ -37,5 +38,6 @@ public class Solution {
             System.out.println();
         }
         bufferedReader.close();
+        bufferedReader1.close();
     }
 }
