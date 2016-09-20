@@ -13,11 +13,13 @@ import java.io.IOException;
 
 public class FileConsoleWriter extends FileWriter{
 
+
+
     @Override
     public void write(String s, int i, int i1) throws IOException
     {
         super.write(s, i, i1);
-        System.out.println(s.substring(i,i1));
+        System.out.println(s.substring(i,i+i1));
     }
 
     @Override
@@ -33,7 +35,7 @@ public class FileConsoleWriter extends FileWriter{
         super.write(chars, i, i1);
         for (int j = i; j < i + i1 ; j++)
         {
-            System.out.println(chars[j]);
+            System.out.print(chars[j]);
         }
         System.out.println();
     }
@@ -42,14 +44,14 @@ public class FileConsoleWriter extends FileWriter{
     public void write(char[] chars) throws IOException
     {
         super.write(chars);
-        System.out.println(chars);
+
     }
 
     @Override
     public void write(String s) throws IOException
     {
         super.write(s);
-        System.out.println(s);
+
     }
 
     public FileConsoleWriter(String s) throws IOException
@@ -75,5 +77,18 @@ public class FileConsoleWriter extends FileWriter{
     public FileConsoleWriter(FileDescriptor fileDescriptor)
     {
         super(fileDescriptor);
+    }
+
+    public static void main(String[] args) throws IOException
+    {
+        FileConsoleWriter fileConsoleWriter = new FileConsoleWriter("/home/user/19.10.b2/test.txt");
+        fileConsoleWriter.write("Проверка String:");
+        fileConsoleWriter.write(1234);
+        char[] buff = "Проверка char buff:".toCharArray();
+        fileConsoleWriter.write(buff);
+        fileConsoleWriter.write(buff, 3, 5);
+        fileConsoleWriter.write("Проверка String обрезка:", 1, 6);
+        fileConsoleWriter.flush();
+        fileConsoleWriter.close();
     }
 }
