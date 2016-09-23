@@ -35,7 +35,6 @@ class HtmlTag implements Comparable
         return closingMarker;
     }
 
-
     @Override
     public int compareTo(Object o)
     {
