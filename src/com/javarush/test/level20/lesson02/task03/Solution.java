@@ -45,11 +45,9 @@ public class Solution {
 
     public void save(OutputStream outputStream) throws Exception {
         //implement this method - реализуйте этот метод
-        for (Map.Entry entry:
-        properties.entrySet())
-        {
-            outputStream.write((entry.getKey() + ":" + entry.getValue() + "\r").getBytes());
-        }
+        Properties props =new Properties();
+        props.putAll(properties);
+        props.store(outputStream,"hueta");
     }
 
     public void load(InputStream inputStream) throws Exception {
