@@ -54,6 +54,7 @@ same - (1, 1) - (4, 1)
 
                  int direction = Arrays.asList(getAllWordsStartingFromThePoint(crossword,i,j,word.length())).indexOf(word);
 
+                 //-1 == no corresponding word at the position
                  if (direction > -1)
                  {
                      Word w = new Word(word);
